@@ -34,6 +34,35 @@ export const createProductService = (data) => {
   return ProductModel.create(newProduct);
 };
 
+export const updateProductService = (id, updatedData) => {
+  const index = products.findIndex((p) => p.id === id);
+
+  if (index === -1) return null;
+
+  if (updatedData.presentations) {
+    const isValid = updatedData.presentations.every(
+      (p) =>
+        typeof p.label === "string" &&
+        typeof p.price === "number"
+    );
+
+    if (!isValid) {
+      throw new Error("Formato de presentations inválido");
+    }
+  }
+
+  const updatedProduct = {
+    ...products[index],
+    ...updatedData,
+    id,
+  };
+
+  products[index] = updatedProduct;
+
+  return updatedProduct;
+};
+
+
 export const deleteProductService = (id) => {
   const deleted = ProductModel.remove(id);
 
