@@ -43,6 +43,8 @@ Thumbs.db
 firebase-debug.log
 firestore-debug.log
 
+firebase-key.json
+
 # 🧾 Archivos generados
 *.csv
 *.xlsx

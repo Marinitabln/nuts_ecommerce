@@ -15,10 +15,10 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/products", productsRoutes);
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 app.use(notFoundHandler);
 
