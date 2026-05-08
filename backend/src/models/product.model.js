@@ -3,7 +3,9 @@ import { db } from "../config/firebase.js";
 const productsCollection = db.collection("products");
 
 export const getAll = async () => {
-  const snapshot = await productsCollection.get();
+   const snapshot = await productsCollection
+    .orderBy("order")
+    .get();
 
   return snapshot.docs.map((doc) => ({
     id: doc.id,
@@ -23,12 +25,11 @@ export const getById = async (id) => {
 };
 
 export const create = async (product) => {
-  const docRef = await productsCollection.add(product);
+  const docRef = productsCollection.doc(product.id);
 
-  return {
-    id: docRef.id,
-    ...product,
-  };
+  await docRef.set(product);
+
+  return product;
 };
 
 export const update = async (id, data) => {

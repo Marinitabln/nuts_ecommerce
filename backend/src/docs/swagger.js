@@ -26,6 +26,7 @@ const options = {
           type: "object",
           properties: {
             id: { type: "string", example: "1" },
+            order: { type: "number", example: 1 },
             name: { type: "string", example: "Avena instantánea" },
             description: { type: "string" },
             imageUrl: { type: "string" },
@@ -42,11 +43,49 @@ const options = {
             },
           },
         },
+        CreateProductInput: {
+          type: "object",
+          required: ["name", "presentations"],
+          properties: {
+            name: {
+              type: "string",
+              example: "Avena instantánea",
+            },
+            description: {
+              type: "string",
+              example: "Avena ideal para desayunos",
+            },
+            imageUrl: {
+              type: "string",
+              example: "https://miimagen.com/avena.jpg",
+            },
+            category: {
+              type: "string",
+              example: "cereales",
+            },
+            presentations: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  label: {
+                    type: "string",
+                    example: "1kg",
+                  },
+                  price: {
+                    type: "number",
+                    example: 3000,
+                  },
+                },
+              },
+            },
+          },
+        },
         LoginRequest: {
           type: "object",
           properties: {
-            email: { type: "string", example: "admin@test.com" },
-            password: { type: "string", example: "123456" },
+            email: { type: "string", example: "admin@nuts.com" },
+            password: { type: "string", example: "NutsAdmin01*" },
           },
         },
         LoginResponse: {

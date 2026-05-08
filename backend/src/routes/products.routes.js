@@ -74,7 +74,7 @@ router.get("/:id", getProductById);
 
 /**
  * @swagger
- * /api/products:
+ * /api/products/create:
  *   post:
  *     summary: Crear producto
  *     tags: [Products]
@@ -85,7 +85,7 @@ router.get("/:id", getProductById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Product'
+ *             $ref: '#/components/schemas/CreateProductInput'
  *     responses:
  *       201:
  *         description: Producto creado

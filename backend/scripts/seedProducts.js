@@ -14,10 +14,11 @@ const seedProducts = async () => {
     });
 
 
-    products.forEach((product) => {
-      const ref = db.collection("products").doc(); // auto ID
+    products.forEach((product, index) => {
+      const docRef = db.collection("products").doc(product.id);
 
-      batch.set(ref, {
+      batch.set(docRef, {
+        order: index + 1,
         name: product.name,
         description: product.description,
         imageUrl: product.imageUrl,

@@ -16,6 +16,7 @@ export const getProductByIdService = async (id) => {
 
 export const createProductService = async (data) => {
   const { name, description, imageUrl, category, presentations } = data;
+  const nextOrder = (await ProductModel.getAll()).length + 1;
 
   // Validaciones básicas
   if (!name) {
@@ -42,10 +43,12 @@ export const createProductService = async (data) => {
   }
 
   const newProduct = {
-    name,
-    description: description || "",
-    imageUrl: imageUrl || "",
-    category: category || "general",
+     id: nextOrder.toString(),
+    order: nextOrder,
+    name: name.trim(),
+    description: description?.trim() || "",
+    imageUrl: imageUrl?.trim() || "",
+    category: category?.trim() || "general",
     presentations,
     createdAt: new Date().toISOString(),
   };
