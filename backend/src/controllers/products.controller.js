@@ -59,7 +59,7 @@ export const updateProduct = async(req, res) => {
 
 export const deleteProduct = async (req, res) => {
   try {
-    const deleted = deleteProductService(req.params.id);
+    const deleted = await deleteProductService(req.params.id);
     res.json(deleted);
   } catch (error) {
     res.status(404).json({ message: error.message });

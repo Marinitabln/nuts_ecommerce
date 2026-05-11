@@ -103,15 +103,34 @@ router.post("/create", authMiddleware, createProduct);
  *     tags: [Products]
  *     security:
  *       - bearerAuth: []
+ *
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del producto
+ *
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateProductInput'
+ *
  *     responses:
  *       200:
- *         description: Producto actualizado
+ *         description: Producto actualizado correctamente
+ *
+ *       400:
+ *         description: Datos inválidos
+ *
+ *       401:
+ *         description: No autorizado
+ *
  *       404:
- *         description: No encontrado
+ *         description: Producto no encontrado
  */
 router.put("/:id", authMiddleware, updateProduct);
 
