@@ -1,16 +1,16 @@
 "use client"
-import { useGetProducts } from "@/services/query-services/products-query";
+
+import Header from "@/components/layout/Header";
+import ProductsGrid from "@/components/products/ProductsGrid";
+
 
 export default function Home() {
 
- const { data: products, isLoading, error } = useGetProducts(); 
-
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        {products && products.map((product)=>{
-          return(<p>{product.name}</p>)
-        })}
+    <div className="flex flex-col flex-1 items-center justify-center font-sans">
+      <Header />
+      <main className="flex flex-1 w-full max-w-4xl flex-col items-center justify-between py-32 sm:items-start">
+        <ProductsGrid />
       </main>
     </div>
   );

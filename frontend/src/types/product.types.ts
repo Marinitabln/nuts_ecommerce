@@ -1,12 +1,12 @@
 export interface ProductType {
   id: string;
-  order: number;
+  order?: number;
   name: string;
   description: string;
   category: string;
-  imageURL: string;
+  imageUrl: string;
   presentations: PresentationProduct[];
-  createdAt: string;
+  createdAt?: string;
 }
 
 export interface PresentationProduct {
@@ -14,9 +14,10 @@ export interface PresentationProduct {
   price: number;
 }
 
-export interface CartItem {
+export interface CartItemType {
   productId: string;
   productName: string;
+  imageUrl: string;
   presentation: PresentationProduct;
   quantity: number;
   subtotal: number;
