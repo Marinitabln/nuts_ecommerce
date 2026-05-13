@@ -1,13 +1,13 @@
-import { CartItem } from "@/types/product.types";
+import { CartItemType } from "@/types/product.types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 
 
 interface CartStore {
-  cart: CartItem[];
+  cart: CartItemType[];
 
-  addToCart: (item: CartItem) => void;
+  addToCart: (item: CartItemType) => void;
 
   removeFromCart: (
     id: string,
