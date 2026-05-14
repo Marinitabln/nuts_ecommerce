@@ -1,17 +1,20 @@
 "use client"
 
-import Header from "@/components/layout/Header";
+import BenefitsBar from "@/components/benefits/BenefitsBar";
+import HeroCarousel from "@/components/hero/HeroCarousel";
+import Filters from "@/components/products/Filters";
 import ProductsGrid from "@/components/products/ProductsGrid";
+import { useState } from "react";
 
 
 export default function Home() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center font-sans">
-      <Header />
-      <main className="flex flex-1 w-full max-w-4xl flex-col items-center justify-between py-32 sm:items-start">
-        <ProductsGrid />
-      </main>
-    </div>
-  );
+    <>
+      <HeroCarousel />
+      <BenefitsBar />
+      <Filters selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+      <ProductsGrid selectedCategory={selectedCategory} />
+    </>)
 }
