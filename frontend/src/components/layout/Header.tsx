@@ -9,6 +9,7 @@ import {
     X,
     ShoppingCart,
     User,
+    ChevronDown,
 } from "lucide-react";
 import CartDrawer from "../cart/CartDrawer";
 import { useCartStore } from "@/stores/Cart.store";
@@ -23,20 +24,25 @@ const navItems = [
         href: "/combos",
     },
     {
-        label: "Cereales",
-        href: "/categoria/cereales",
-    },
-    {
-        label: "Frutos secos",
-        href: "/categoria/frutos-secos",
-    },
-    {
-        label: "Semillas",
-        href: "/categoria/semillas",
-    },
-    {
-        label: "Envasados",
-        href: "/categoria/envasados",
+        label: "Productos",
+        children: [
+            {
+                label: "Cereales",
+                href: "/categoria/cereales",
+            },
+            {
+                label: "Frutos secos",
+                href: "/categoria/frutos-secos",
+            },
+            {
+                label: "Semillas",
+                href: "/categoria/semillas",
+            },
+            {
+                label: "Envasados",
+                href: "/categoria/envasados",
+            },
+        ],
     },
     {
         label: "Doy packs",
@@ -49,6 +55,7 @@ const navLinkStyles =
 
 export default function Header() {
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement | null>(null);
     const userBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -129,17 +136,38 @@ export default function Header() {
                     <ul className="hidden md:flex items-center gap-6">
 
                         {navItems.map((item) => (
-                            <li key={item.href}>
-                                <Link
-                                    href={item.href}
-                                    className={navLinkStyles}
-                                >
-                                    {item.label}
-                                </Link>
+                            <li key={item.label} className="relative group">
+                                {item.children ? (
+                                    <>
+                                        <button className="flex items-center gap-1 font-semibold text-primary hover:text-secondary transition-colors">
+                                            {item.label}
+                                            <ChevronDown size={16} className="transition-transform duration-200 group-hover:rotate-180" />
+                                        </button>
+
+                                        <div className="absolute top-8 left-0 min-w-[220px] bg-white rounded-lg shadow-xl py-3    opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible    group-hover:translate-y-0 transition-all duration-200">
+                                            {item.children.map(
+                                                (child) => (
+                                                    <Link
+                                                        key={child.href}
+                                                        href={child.href}
+                                                        className="block px-4 py-2 text-sm hover:bg-primary/20 transition-colors">
+                                                        {child.label}
+                                                    </Link>
+                                                )
+                                            )}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <Link
+                                        href={item.href!}
+                                        className={navLinkStyles}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                )}
                             </li>
                         ))}
                     </ul>
-
                     {/* ACTIONS */}
                     <div className="flex items-center gap-4">
 
@@ -234,21 +262,60 @@ export default function Header() {
 
             {/* MOBILE MENU */}
             {mobileOpen && (
-                <div className="md:hidden absolute top-24 left-0 w-full bg-[var(--color-secondary)] shadow-lg z-40">
-
-                    <ul className="flex flex-col items-center gap-6 py-10">
-
+                <div className="md:hidden absolute top-24 left-0 w-full min-h-screen bg-secondary shadow-lg z-40 items-center">
+                    <ul className="flex flex-col py-10">
                         {navItems.map((item) => (
-                            <li key={item.href}>
-                                <Link
-                                    href={item.href}
-                                    className="font-semibold text-[var(--color-primary)]"
-                                    onClick={() =>
-                                        setMobileOpen(false)
-                                    }
-                                >
-                                    {item.label}
-                                </Link>
+                            <li
+                                key={item.label}
+                            >
+                                {item.children ? (
+                                    <div>
+                                        <button
+                                            onClick={() =>
+                                                setMobileProductsOpen(
+                                                    (prev) => !prev
+                                                )
+                                            }
+                                            className="w-82 flex items-center justify-between gap-20 px-6 py-4 font-semibold text-primary border-b mx-6">
+                                            {item.label}
+
+                                            <ChevronDown size={18} className={`transition-transform duration-200 ${mobileProductsOpen ? "rotate-180" : ""}`} />
+                                        </button>
+
+                                        {/* SUBMENU */}
+                                        <div
+                                            className={`overflow-hidden transition-all duration-300 ${mobileProductsOpen ? "max-h-96" : "max-h-0"}`}
+                                        >
+                                            <div className="flex flex-col pb-4">
+
+                                                {item.children.map(
+                                                    (child) => (
+                                                        <Link
+                                                            key={child.href}
+                                                            href={child.href}
+                                                            onClick={() =>
+                                                                setMobileOpen(
+                                                                    false
+                                                                )
+                                                            }
+                                                            className="px-15 py-3 text-sm text-primary hover:bg-black/5">
+                                                            {child.label}
+                                                        </Link>
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <Link
+                                        href={item.href!}
+                                        onClick={() =>
+                                            setMobileOpen(false)
+                                        }
+                                        className="block px-6 py-4 font-semibold text-primary border-b mx-6">
+                                        {item.label}
+                                    </Link>
+                                )}
                             </li>
                         ))}
                     </ul>
