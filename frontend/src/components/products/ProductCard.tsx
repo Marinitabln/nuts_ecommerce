@@ -1,19 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {CartItemType,ProductType} from "@/types/product.types";
+import { CartItemType, ProductType } from "@/types/product.types";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/Button";
-import { MinusCircle, PlusCircle} from "lucide-react"
+import { MinusCircle, PlusCircle } from "lucide-react"
 import Image from "next/image";
 import { useCartStore } from "@/stores/Cart.store";
+import { useToastStore } from "@/stores/ToastStore";
 
 const ProductCard = ({
   id,
   category,
   imageUrl,
   name,
-  description,
   presentations,
 }: ProductType) => {
 
@@ -22,6 +22,7 @@ const ProductCard = ({
   const [subtotal, setSubtotal] = useState(presentations[0].price);
 
   const addToCart = useCartStore((state) => state.addToCart);
+  const showToast = useToastStore((state) => state.showToast);
 
   const router = useRouter();
 
@@ -76,7 +77,7 @@ const ProductCard = ({
     };
 
     addToCart(cartItem);
-
+    showToast(`Se agregó ${name} al carrito`);
     setQuantity(1);
   };
 
@@ -87,7 +88,7 @@ const ProductCard = ({
   useEffect(() => {
     setSubtotal(
       quantity *
-        selectedPresentation.price
+      selectedPresentation.price
     );
   }, [
     quantity,
@@ -95,11 +96,9 @@ const ProductCard = ({
   ]);
 
   return (
-    <div className="group bg-[var(--color-background-secondary)] rounded-lg w-full max-w-[280px] p-6 mx-auto flex flex-col shadow-[1px_3px_5px_rgba(0,0,0,0.15)] hover:bg-[#eeeeee] transition-all duration-500">
+    <div className="group rounded-lg w-full max-w-[280px] p-6 mx-auto flex flex-col shadow-[1px_3px_5px_rgba(0,0,0,0.15)] hover:bg-[#eeeeee] transition-all duration-500">
 
-      {/* IMAGE */}
       <div className="overflow-hidden rounded-lg">
-
         <Image
           width={300}
           height={200}
@@ -109,27 +108,16 @@ const ProductCard = ({
         />
       </div>
 
-      {/* TITLE */}
-      <h2 className="text-md mb-2 font-bold border-b border-[#ddd] py-3">
-        {name}
-      </h2>
-
-      {/* DESCRIPTION */}
-      <p className="text-sm mb-4 font-light">
-        {description}
-      </p>
+      
+        <h2 className="text-md mb-4 font-bold border-b border-[#ddd] py-3 line-clamp-2">
+          {name}
+        </h2>
 
       <form
         onSubmit={handleProductToCart}
       >
-        {/* PRESENTATIONS */}
         <div className="flex items-center gap-3 mb-4">
-
-          <label
-            htmlFor={presentationId}
-          >
-            Tamaño:
-          </label>
+          <label htmlFor={presentationId}>Tamaño:</label>
 
           <select
             name="presentation"
@@ -154,32 +142,15 @@ const ProductCard = ({
           </select>
         </div>
 
-        {/* PRICE */}
         <span className="text-[1.3rem] font-bold text-[var(--color-primary)] pb-4 block">
-          $
-          {selectedPresentation.price}
+          ${selectedPresentation.price}
         </span>
 
-        {/* QUANTITY */}
         <div className="flex justify-start items-baseline gap-4">
-
           <span className="w-[30%] flex justify-between items-center gap-1 text-[1.2rem] mb-4">
-
-            <MinusCircle
-              onClick={
-                decreaseQuantity
-              }
-              className="cursor-pointer"
-            />
-
+            <MinusCircle onClick={decreaseQuantity} className="cursor-pointer" />
             <span>{quantity}</span>
-
-            <PlusCircle
-              onClick={
-                increaseQuantity
-              }
-              className="cursor-pointer"
-            />
+            <PlusCircle onClick={increaseQuantity} className="cursor-pointer" />
           </span>
 
           {quantity > 1 && (
