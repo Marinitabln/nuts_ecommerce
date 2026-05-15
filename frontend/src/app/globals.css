@@ -14,6 +14,8 @@
 	--color-primary: #634B49;
 	--color-secondary: #c6b5b3;
 	--color-border: #e5e7eb;
+	--color-error: #ff2056;
+	--color-success: #00bc7d;  
 }
 
 @media (prefers-color-scheme: dark) {

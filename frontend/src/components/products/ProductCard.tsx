@@ -96,7 +96,7 @@ const ProductCard = ({
   ]);
 
   return (
-    <div className="group rounded-lg w-full max-w-[280px] p-6 mx-auto flex flex-col shadow-[1px_3px_5px_rgba(0,0,0,0.15)] hover:bg-[#eeeeee] transition-all duration-500">
+    <div className="group rounded-lg w-full max-w-[280px] h-full p-6 mx-auto flex flex-col shadow-[1px_3px_5px_rgba(0,0,0,0.15)] hover:bg-[#eeeeee] transition-all duration-500">
 
       <div className="overflow-hidden rounded-lg">
         <Image
