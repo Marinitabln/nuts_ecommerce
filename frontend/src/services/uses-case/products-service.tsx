@@ -36,9 +36,9 @@ export const updatePrduct = async (id: string, data: Partial<ProductType>): Prom
 }
 
 export const createProduct = async (data: Omit<ProductType, "id">): Promise<ProductType> => {
-  const response = await api.post("/products", data);
+  const response = await api.post("/products/create", data);
   return response.data;
-}   
+}
 
 export const deleteProduct = async (id: string): Promise<void> => {
     await api.delete(`/products/${id}`);        
