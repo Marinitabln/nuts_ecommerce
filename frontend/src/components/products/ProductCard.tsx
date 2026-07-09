@@ -19,7 +19,7 @@ const ProductCard = ({
 
   const [quantity, setQuantity] = useState(1);
   const [selectedPresentation, setSelectedPresentation] = useState(presentations[0]);
-  const [subtotal, setSubtotal] = useState(presentations[0].price);
+  const [subtotal, setSubtotal] = useState(presentations[0].finalPrice);
 
   const addToCart = useCartStore((state) => state.addToCart);
   const showToast = useToastStore((state) => state.showToast);
@@ -68,8 +68,8 @@ const ProductCard = ({
         label:
           selectedPresentation.label,
 
-        price:
-          selectedPresentation.price,
+        finalPrice:
+          selectedPresentation.finalPrice,
       },
 
       subtotal,
@@ -88,11 +88,11 @@ const ProductCard = ({
   useEffect(() => {
     setSubtotal(
       quantity *
-      selectedPresentation.price
+      selectedPresentation.finalPrice
     );
   }, [
     quantity,
-    selectedPresentation.price,
+    selectedPresentation.finalPrice,
   ]);
 
   return (
@@ -143,7 +143,7 @@ const ProductCard = ({
         </div>
 
         <span className="text-[1.3rem] font-bold text-[var(--color-primary)] pb-4 block">
-          ${selectedPresentation.price}
+          ${selectedPresentation.finalPrice}
         </span>
 
         <div className="flex justify-start items-baseline gap-4">

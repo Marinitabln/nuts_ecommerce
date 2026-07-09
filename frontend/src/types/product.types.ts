@@ -1,3 +1,12 @@
+
+export interface PresentationType {
+  label: string;
+  supplierCost?: number;
+  profitMargin?: number;
+  finalPrice: number;
+  stock?: number;
+}
+
 export interface ProductType {
   id: string;
   order?: number;
@@ -5,20 +14,16 @@ export interface ProductType {
   description?: string;
   category: string;
   imageUrl: string;
-  presentations: PresentationProduct[];
+  presentations: PresentationType[];
   createdAt?: string;
-}
-
-export interface PresentationProduct {
-  label: string;
-  price: number;
+  active?: boolean;
 }
 
 export interface CartItemType {
   productId: string;
   productName: string;
   imageUrl: string;
-  presentation: PresentationProduct;
+  presentation: PresentationType;
   quantity: number;
   subtotal: number;
 }

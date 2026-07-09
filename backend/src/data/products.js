@@ -8,7 +8,10 @@ const products = [
     "presentations": [
       {
         "label": "1 kg",
-        "price": 3000
+        "finalPrice": 3000,
+        "stock": 10,
+        "supplierCost": 2000,
+        "profitMargin": 50
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997729"
@@ -22,15 +25,24 @@ const products = [
     "presentations": [
       {
         "label": "250 grs",
-        "price": 2000
+        "finalPrice": 2000,
+        "stock": 10,
+        "supplierCost": 1200,
+        "profitMargin": 67
       },
       {
         "label": "500 grs",
-        "price": 3850
+        "finalPrice": 3850,
+        "stock": 10,
+        "supplierCost": 2310,
+        "profitMargin": 67
       },
       {
         "label": "1 kg",
-        "price": 7500
+        "finalPrice": 7500,
+        "stock": 10,
+        "supplierCost": 4500,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997736"
@@ -44,15 +56,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1400
+        "finalPrice": 1400,
+        "stock": 10,
+        "supplierCost": 840,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2600
+        "finalPrice": 2600,
+        "stock": 10,
+        "supplierCost": 1560,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 5000
+        "finalPrice": 5000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997740"
@@ -66,15 +87,25 @@ const products = [
     "presentations": [
       {
         "label": "150 grs",
-        "price": 1900
+        "finalfinalPrice": 1900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
+
       },
       {
         "label": "500 grs",
-        "price": 3600
+        "finalfinalPrice": 3600,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1 kg",
-        "price": 7000
+        "finalfinalPrice": 7000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997742"
@@ -88,15 +119,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1300
+        "finalPrice": 1300,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2400
+        "finalPrice": 2400,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 4400
+        "finalPrice": 4400,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997743"
@@ -110,15 +150,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1000
+        "finalPrice": 1000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 1900
+        "finalPrice": 1900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 3600
+        "finalPrice": 3600,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997745"
@@ -132,15 +181,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1400
+        "finalPrice": 1400,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2500
+        "finalPrice": 2500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 4700
+        "finalPrice": 4700,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997748"
@@ -154,15 +212,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1100
+        "finalPrice": 1100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2100
+        "finalPrice": 2100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 3900
+        "finalPrice": 3900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997751"
@@ -176,11 +243,17 @@ const products = [
     "presentations": [
       {
         "label": "500gr",
-        "price": 1700
+        "finalPrice": 1700,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 3200
+        "finalPrice": 3200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997754"
@@ -194,15 +267,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1600
+        "finalPrice": 1600,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2800
+        "finalPrice": 2800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 5200
+        "finalPrice": 5200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997756"
@@ -216,15 +298,24 @@ const products = [
     "presentations": [
       {
         "label": "150 grs",
-        "price": 4500
+        "finalPrice": 4500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500 grs",
-        "price": 14700
+        "finalPrice": 14700,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1 kg",
-        "price": 29000
+        "finalPrice": 29000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997759"
@@ -238,15 +329,24 @@ const products = [
     "presentations": [
       {
         "label": "100 grs",
-        "price": 2300
+        "finalPrice": 2300,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "300 grs",
-        "price": 6800
+        "finalPrice": 6800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "700 grs",
-        "price": 15500
+        "finalPrice": 15500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997761"
@@ -260,15 +360,24 @@ const products = [
     "presentations": [
       {
         "label": "150 grs",
-        "price": 3500
+        "finalPrice": 3500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500 grs",
-        "price": 10700
+        "finalPrice": 10700,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1 kg",
-        "price": 21000
+        "finalPrice": 21000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997763"
@@ -282,15 +391,24 @@ const products = [
     "presentations": [
       {
         "label": "150 grs",
-        "price": 800
+        "finalPrice": 800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500 grs",
-        "price": 2100
+        "finalPrice": 2100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1 kg",
-        "price": 4000
+        "finalPrice": 4000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997765"
@@ -304,15 +422,24 @@ const products = [
     "presentations": [
       {
         "label": "150 grs",
-        "price": 800
+        "finalPrice": 800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500 grs",
-        "price": 2100
+        "finalPrice": 2100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1 kg",
-        "price": 4000
+        "finalPrice": 4000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997767"
@@ -326,15 +453,24 @@ const products = [
     "presentations": [
       {
         "label": "150gr",
-        "price": 2700
+        "finalPrice": 2700,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 8200
+        "finalPrice": 8200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 16000
+        "finalPrice": 16000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997769"
@@ -348,11 +484,17 @@ const products = [
     "presentations": [
       {
         "label": "150 grs",
-        "price": 6500
+        "finalPrice": 6500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "300 grs",
-        "price": 12900
+        "finalPrice": 12900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997771"
@@ -366,15 +508,24 @@ const products = [
     "presentations": [
       {
         "label": "200gr",
-        "price": 3200
+        "finalPrice": 3200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 7100
+        "finalPrice": 7100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 12900
+        "finalPrice": 12900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997772"
@@ -388,15 +539,24 @@ const products = [
     "presentations": [
       {
         "label": "150 grs",
-        "price": 1600
+        "finalPrice": 1600,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500 grs",
-        "price": 4900
+        "finalPrice": 4900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1 kg",
-        "price": 9500
+        "finalPrice": 9500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997774"
@@ -410,15 +570,24 @@ const products = [
     "presentations": [
       {
         "label": "150 grs",
-        "price": 1100
+        "finalPrice": 1100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500 grs",
-        "price": 3400
+        "finalPrice": 3400,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1 kg",
-        "price": 6500
+        "finalPrice": 6500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997776"
@@ -432,15 +601,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 3200
+        "finalPrice": 3200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 6200
+        "finalPrice": 6200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 12000
+        "finalPrice": 12000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997778"
@@ -454,15 +632,24 @@ const products = [
     "presentations": [
       {
         "label": "200gr",
-        "price": 1100
+        "finalPrice": 1100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2500
+        "finalPrice": 2500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 4700
+        "finalPrice": 4700,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997779"
@@ -476,15 +663,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 900
+        "finalPrice": 900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 1600
+        "finalPrice": 1600,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 3000
+        "finalPrice": 3000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997781"
@@ -498,15 +694,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1100
+        "finalPrice": 1100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2000
+        "finalPrice": 2000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 3800
+        "finalPrice": 3800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997783"
@@ -520,15 +725,24 @@ const products = [
     "presentations": [
       {
         "label": "200gr",
-        "price": 3900
+        "finalPrice": 3900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 9200
+        "finalPrice": 9200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 18000
+        "finalPrice": 18000,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997785"
@@ -542,15 +756,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1500
+        "finalPrice": 1500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2800
+        "finalPrice": 2800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 5400
+        "finalPrice": 5400,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997787"
@@ -564,15 +787,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1400
+        "finalPrice": 1400,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2500
+        "finalPrice": 2500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 4700
+        "finalPrice": 4700,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997789"
@@ -586,15 +818,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 900
+        "finalPrice": 900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 1700
+        "finalPrice": 1700,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 3200
+        "finalPrice": 3200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997790"
@@ -608,15 +849,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 2100
+        "finalPrice": 2100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 3900
+        "finalPrice": 3900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 7100
+        "finalPrice": 7100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997792"
@@ -630,15 +880,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 800
+        "finalPrice": 800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 1500
+        "finalPrice": 1500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 2800
+        "finalPrice": 2800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997793"
@@ -652,11 +911,17 @@ const products = [
     "presentations": [
       {
         "label": "450 grs",
-        "price": 4900
+        "finalPrice": 4900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "950 grs",
-        "price": 8600
+        "finalPrice": 8600,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997795"
@@ -670,15 +935,24 @@ const products = [
     "presentations": [
       {
         "label": "250ml",
-        "price": 2500
+        "finalPrice": 2500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500ml",
-        "price": 4700
+        "finalPrice": 4700,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1L",
-        "price": 8900
+        "finalPrice": 8900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997797"
@@ -692,15 +966,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1900
+        "finalPrice": 1900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "450gr",
-        "price": 3300
+        "finalPrice": 3300,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "800gr",
-        "price": 6100
+        "finalPrice": 6100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997798"
@@ -714,15 +997,24 @@ const products = [
     "presentations": [
       {
         "label": "250ml",
-        "price": 2900
+        "finalPrice": 2900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500ml",
-        "price": 5400
+        "finalPrice": 5400,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1L",
-        "price": 9800
+        "finalPrice": 9800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997800"
@@ -736,15 +1028,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1900
+        "finalPrice": 1900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 3500
+        "finalPrice": 3500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 6500
+        "finalPrice": 6500,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997803"
@@ -758,15 +1059,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1600
+        "finalPrice": 1600,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2800
+        "finalPrice": 2800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 5200
+        "finalPrice": 5200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997804"
@@ -780,15 +1090,24 @@ const products = [
     "presentations": [
       {
         "label": "250ml",
-        "price": 3100
+        "finalPrice": 3100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500ml",
-        "price": 5600
+        "finalPrice": 5600,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1L",
-        "price": 10200
+        "finalPrice": 10200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997806"
@@ -802,15 +1121,24 @@ const products = [
     "presentations": [
       {
         "label": "250ml",
-        "price": 1900
+        "finalPrice": 1900,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500ml",
-        "price": 3300
+        "finalPrice": 3300,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1L",
-        "price": 6100
+        "finalPrice": 6100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997808"
@@ -824,15 +1152,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1200
+        "finalPrice": 1200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2200
+        "finalPrice": 2200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 4100
+        "finalPrice": 4100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997809"
@@ -846,15 +1183,24 @@ const products = [
     "presentations": [
       {
         "label": "250ml",
-        "price": 1800
+        "finalPrice": 1800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500ml",
-        "price": 3100
+        "finalPrice": 3100,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1L",
-        "price": 5800
+        "finalPrice": 5800,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997811"
@@ -868,15 +1214,24 @@ const products = [
     "presentations": [
       {
         "label": "250gr",
-        "price": 1200
+        "finalPrice": 1200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "500gr",
-        "price": 2300
+        "finalPrice": 2300,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       },
       {
         "label": "1kg",
-        "price": 4200
+        "finalPrice": 4200,
+        "stock": 10,
+        "supplierCost": 3000,
+        "profitMargin": 67
       }
     ],
     "createdAt": "2026-05-05T18:40:37.997813"
