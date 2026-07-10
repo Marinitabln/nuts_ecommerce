@@ -35,7 +35,7 @@ export const createProductService = async (data) => {
   const isValidPresentations = presentations.every(
     (presentation) =>
       typeof presentation.label === "string" &&
-      typeof presentation.price === "number"
+      typeof presentation.finalPrice === "number"
   );
 
   if (!isValidPresentations) {
@@ -76,7 +76,7 @@ export const updateProductService = async (id, updatedData) => {
     const isValid = updatedData.presentations.every(
       (presentation) =>
         typeof presentation.label === "string" &&
-        typeof presentation.price === "number"
+        typeof presentation.finalPrice === "number"
     );
 
     if (!isValid) {
