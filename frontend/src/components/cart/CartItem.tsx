@@ -92,7 +92,7 @@ const CartItem = ({
           {/* PRICE */}
           <span className="font-bold text-[var(--color-primary)]">
             $
-            {selectedProduct.presentation.price *
+            {selectedProduct.presentation.finalPrice *
               selectedProduct.quantity}
           </span>
         </div>
