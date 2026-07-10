@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -13,6 +14,7 @@ import {
 } from "lucide-react";
 import CartDrawer from "../cart/CartDrawer";
 import { useCartStore } from "@/stores/Cart.store";
+import { clearToken, getTokenPayload, TokenPayload } from "@/lib/auth-token";
 
 const navItems = [
     {
@@ -54,6 +56,8 @@ const navLinkStyles =
     "relative font-semibold text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:scale-x-0 after:bg-[var(--color-primary)] after:transition-transform hover:after:scale-x-100";
 
 export default function Header() {
+    const router = useRouter();
+
     const [mobileOpen, setMobileOpen] = useState(false);
     const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -62,13 +66,11 @@ export default function Header() {
 
     const [cartOpen, setCartOpen] = useState(false);
 
-    // MOCK USER
-    const user = {
-        name: "Marina Blanco",
-        role: "admin",
-    };
+    const [user, setUser] = useState<TokenPayload | null>(null);
 
-    const isAuthenticated = true;
+    useEffect(() => {
+        setUser(getTokenPayload());
+    }, []);
 
     const totalItems = useCartStore((state) => state.getTotalItems());
 
@@ -81,7 +83,10 @@ export default function Header() {
     };
 
     const logout = () => {
-        console.log("logout");
+        clearToken();
+        setUser(null);
+        setDropdownOpen(false);
+        router.push("/");
     };
 
     useEffect(() => {
@@ -186,10 +191,13 @@ export default function Header() {
                         </button>
 
                         {/* USER */}
-                        {!isAuthenticated ? (
-                            <button className="hidden md:block font-semibold text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors">
+                        {!user ? (
+                            <Link
+                                href="/ingresar"
+                                className="hidden md:block font-semibold text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors"
+                            >
                                 Iniciar sesión
-                            </button>
+                            </Link>
                         ) : (
                             <div className="relative">
 

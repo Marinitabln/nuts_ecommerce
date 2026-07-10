@@ -23,3 +23,13 @@ export const authMiddleware = (req, res, next) => {
     });
   }
 };
+
+export const requireAdmin = (req, res, next) => {
+  if (req.user?.role !== "admin") {
+    return res.status(403).json({
+      message: "Acceso restringido a administradores",
+    });
+  }
+
+  next();
+};

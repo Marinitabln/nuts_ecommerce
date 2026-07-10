@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Menu } from "lucide-react";
 
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
-import { getToken } from "@/lib/auth-token";
+import { getTokenPayload } from "@/lib/auth-token";
 
 export default function DashboardLayout({
   children,
@@ -18,10 +18,18 @@ export default function DashboardLayout({
   const [checkedAuth, setCheckedAuth] = useState(false);
 
   useEffect(() => {
-    if (!getToken()) {
+    const payload = getTokenPayload();
+
+    if (!payload) {
       router.replace("/login");
       return;
     }
+
+    if (payload.role !== "admin") {
+      router.replace("/");
+      return;
+    }
+
     setCheckedAuth(true);
   }, [router]);
 

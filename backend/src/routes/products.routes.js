@@ -7,7 +7,7 @@ import {
   deleteProduct,
 } from "../controllers/products.controller.js";
 
-import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { authMiddleware, requireAdmin } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
@@ -93,7 +93,7 @@ router.get("/:id", getProductById);
  *         description: No autorizado
  */
 
-router.post("/create", authMiddleware, createProduct);
+router.post("/create", authMiddleware, requireAdmin, createProduct);
 
 /**
  * @swagger
@@ -132,7 +132,7 @@ router.post("/create", authMiddleware, createProduct);
  *       404:
  *         description: Producto no encontrado
  */
-router.put("/:id", authMiddleware, updateProduct);
+router.put("/:id", authMiddleware, requireAdmin, updateProduct);
 
 /**
  * @swagger
@@ -146,7 +146,7 @@ router.put("/:id", authMiddleware, updateProduct);
  *       200:
  *         description: Producto eliminado
  */
-router.delete("/:id", authMiddleware, deleteProduct);
+router.delete("/:id", authMiddleware, requireAdmin, deleteProduct);
 
 
 export default router;
