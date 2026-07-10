@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import { login } from "@/services/uses-case/auth-service";
 import { setToken } from "@/lib/auth-token";
+import { getApiErrorMessage } from "@/lib/api-error";
 import { Button } from "@/components/ui/Button";
 
 export default function LoginPage() {
@@ -25,8 +26,8 @@ export default function LoginPage() {
       const { token } = await login(email, password);
       setToken(token);
       router.push("/dashboard");
-    } catch {
-      setError("Credenciales inválidas");
+    } catch (err) {
+      setError(getApiErrorMessage(err, "Credenciales inválidas"));
     } finally {
       setIsLoading(false);
     }
