@@ -161,17 +161,25 @@ const TableProducts = ({ products, getTotalStock, handleEdit, handleDelete, isLo
                       {/* STATUS */}
                       <td className="p-4">
 
-                        {getTotalStock(product) > 0 ? (
-                          <span className="inline-flex items-center gap-2 rounded-full bg-success/10 px-3 py-1 text-sm text-success">
-                            <PackageCheck size={16} strokeWidth={2.5} />
-                            <span className="hidden lg:inline">Disponible</span>
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-2 rounded-full bg-error/10 px-3 py-1 text-sm text-error">
-                            <PackageX size={16} strokeWidth={2.5} />
-                            <span className="hidden lg:inline"> Sin stock </span>
-                          </span>
-                        )}
+                        <div className="flex flex-col gap-1.5 items-start">
+                          {getTotalStock(product) > 0 ? (
+                            <span className="inline-flex items-center gap-2 rounded-full bg-success/10 px-3 py-1 text-sm text-success">
+                              <PackageCheck size={16} strokeWidth={2.5} />
+                              <span className="hidden lg:inline">Disponible</span>
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-2 rounded-full bg-error/10 px-3 py-1 text-sm text-error">
+                              <PackageX size={16} strokeWidth={2.5} />
+                              <span className="hidden lg:inline"> Sin stock </span>
+                            </span>
+                          )}
+
+                          {product.active === false && (
+                            <span className="inline-flex items-center gap-2 rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-500">
+                              Inactivo
+                            </span>
+                          )}
+                        </div>
                       </td>
 
                       {/* ACTIONS */}

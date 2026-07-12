@@ -60,15 +60,23 @@ const MobileCard = ({ products, getTotalStock, handleEdit, handleDelete }: Mobil
                                     )}
                                 </span>
 
-                                {getTotalStock(product) > 0 ? (
-                                    <span className="text-success text-sm font-medium">
-                                        Disponible
-                                    </span>
-                                ) : (
-                                    <span className="text-error text-sm font-medium">
-                                        Sin stock
-                                    </span>
-                                )}
+                                <div className="flex items-center gap-2">
+                                    {getTotalStock(product) > 0 ? (
+                                        <span className="text-success text-sm font-medium">
+                                            Disponible
+                                        </span>
+                                    ) : (
+                                        <span className="text-error text-sm font-medium">
+                                            Sin stock
+                                        </span>
+                                    )}
+
+                                    {product.active === false && (
+                                        <span className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-500">
+                                            Inactivo
+                                        </span>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="flex items-center justify-between">
