@@ -15,42 +15,8 @@ import {
 import CartDrawer from "../cart/CartDrawer";
 import { useCartStore } from "@/stores/Cart.store";
 import { clearToken, getTokenPayload, TokenPayload } from "@/lib/auth-token";
-
-const navItems = [
-    {
-        label: "Ofertas",
-        href: "/ofertas",
-    },
-    {
-        label: "Combos",
-        href: "/combos",
-    },
-    {
-        label: "Productos",
-        children: [
-            {
-                label: "Cereales",
-                href: "/categoria/cereales",
-            },
-            {
-                label: "Frutos secos",
-                href: "/categoria/frutos-secos",
-            },
-            {
-                label: "Semillas",
-                href: "/categoria/semillas",
-            },
-            {
-                label: "Envasados",
-                href: "/categoria/envasados",
-            },
-        ],
-    },
-    {
-        label: "Doy packs",
-        href: "/doy_packs",
-    },
-];
+import { useGetProducts } from "@/services/query-services/products-query";
+import { capitalizeFirst, slugify } from "@/lib/slugify";
 
 const navLinkStyles =
     "relative font-semibold text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:scale-x-0 after:bg-[var(--color-primary)] after:transition-transform hover:after:scale-x-100";
@@ -71,6 +37,34 @@ export default function Header() {
     useEffect(() => {
         setUser(getTokenPayload());
     }, []);
+
+    const { data: products = [] } = useGetProducts();
+
+    const categories = Array.from(
+        new Set(products.map((product) => product.category))
+    );
+
+    const navItems = [
+        {
+            label: "Ofertas",
+            href: "/ofertas",
+        },
+        {
+            label: "Combos",
+            href: "/combos",
+        },
+        {
+            label: "Productos",
+            children: categories.map((category) => ({
+                label: capitalizeFirst(category),
+                href: `/categoria/${slugify(category)}`,
+            })),
+        },
+        {
+            label: "Doy packs",
+            href: "/doy_packs",
+        },
+    ];
 
     const totalItems = useCartStore((state) => state.getTotalItems());
 
