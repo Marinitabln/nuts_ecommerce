@@ -10,6 +10,7 @@ export interface AuthUser {
   role: "admin" | "customer";
   department?: string;
   location?: string;
+  createdAt?: string;
 }
 
 interface AuthResponse {

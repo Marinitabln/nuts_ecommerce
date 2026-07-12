@@ -4,35 +4,49 @@ import { useState } from "react";
 import { Search, ShieldCheck, UserPlus, Users } from "lucide-react";
 
 import { KpiCard } from "@/components/dashboard/KpiCard";
-
-interface MockUser {
-  id: string;
-  name: string;
-  email: string;
-  role: "admin" | "customer";
-  createdAt: string;
-}
-
-const MOCK_USERS: MockUser[] = [
-  { id: "1", name: "Lucía Fernández", email: "lucia.fernandez@mail.com", role: "customer", createdAt: "01/07/2026" },
-  { id: "2", name: "Martín Sosa", email: "martin.sosa@mail.com", role: "customer", createdAt: "28/06/2026" },
-  { id: "3", name: "Rocío Medina", email: "rocio.medina@mail.com", role: "customer", createdAt: "22/06/2026" },
-  { id: "4", name: "Franco Díaz", email: "franco.diaz@mail.com", role: "customer", createdAt: "15/06/2026" },
-  { id: "5", name: "Agustina Torres", email: "agustina.torres@mail.com", role: "customer", createdAt: "10/06/2026" },
-  { id: "6", name: "Bruno Acosta", email: "bruno.acosta@mail.com", role: "admin", createdAt: "05/05/2026" },
-];
+import { useGetUsers } from "@/services/query-services/users-query";
+import { useUpdateUserRole, useDeleteUser } from "@/services/mutations-service/users-mutation";
+import { getTokenPayload } from "@/lib/auth-token";
+import { getApiErrorMessage } from "@/lib/api-error";
 
 export default function UsuariosPage() {
   const [search, setSearch] = useState("");
 
-  const filteredUsers = MOCK_USERS.filter(
+  const { data: users = [], isLoading } = useGetUsers();
+  const updateRole = useUpdateUserRole();
+  const deleteUser = useDeleteUser();
+
+  const currentEmail = getTokenPayload()?.email;
+
+  const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(search.toLowerCase()) ||
       user.email.toLowerCase().includes(search.toLowerCase())
   );
 
-  const admins = MOCK_USERS.filter((user) => user.role === "admin").length;
-  const customers = MOCK_USERS.length - admins;
+  const admins = users.filter((user) => user.role === "admin").length;
+  const customers = users.length - admins;
+
+  const handleRoleChange = (id: string, role: "admin" | "customer") => {
+    updateRole.mutate(
+      { id, role },
+      {
+        onError: (err) => {
+          alert(getApiErrorMessage(err, "No se pudo cambiar el rol"));
+        },
+      }
+    );
+  };
+
+  const handleDelete = (id: string, name: string) => {
+    if (!confirm(`¿Seguro que querés eliminar a "${name}"?`)) return;
+
+    deleteUser.mutate(id, {
+      onError: (err) => {
+        alert(getApiErrorMessage(err, "No se pudo eliminar el usuario"));
+      },
+    });
+  };
 
   return (
     <section className="w-full flex flex-col gap-8">
@@ -41,14 +55,10 @@ export default function UsuariosPage() {
         <p className="text-gray-500 mt-1">Clientes y administradores de la tienda</p>
       </div>
 
-      <div className="rounded-xl bg-primary/5 border border-primary/20 px-4 py-3 text-sm text-primary">
-        Datos de ejemplo — todavía no está conectado a la lista real de usuarios de Firestore.
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <KpiCard
           title="Total de usuarios"
-          metric={{ value: MOCK_USERS.length, changePercent: 6, trend: "up" }}
+          metric={{ value: users.length, changePercent: 0, trend: "stable" }}
           color="primary"
           icon={<Users />}
         />
@@ -60,7 +70,7 @@ export default function UsuariosPage() {
         />
         <KpiCard
           title="Clientes"
-          metric={{ value: customers, changePercent: 6, trend: "up" }}
+          metric={{ value: customers, changePercent: 0, trend: "stable" }}
           color="success"
           icon={<UserPlus />}
         />
@@ -78,46 +88,86 @@ export default function UsuariosPage() {
       </div>
 
       <div className="w-full overflow-x-auto rounded-2xl p-4 bg-white shadow-sm">
-        <table className="w-full min-w-[600px]">
+        <table className="w-full min-w-[700px]">
           <thead className="border-b border-primary">
             <tr className="text-left">
               <th className="p-3 font-semibold">Nombre</th>
               <th className="p-3 font-semibold">Email</th>
+              <th className="p-3 font-semibold hidden md:table-cell">Teléfono</th>
               <th className="p-3 font-semibold">Rol</th>
               <th className="p-3 font-semibold hidden md:table-cell">Alta</th>
+              <th className="p-3 font-semibold text-right">Acciones</th>
             </tr>
           </thead>
 
           <tbody>
-            {filteredUsers.length === 0 && (
+            {isLoading && (
               <tr>
-                <td colSpan={4} className="p-10 text-center text-gray-500">
+                <td colSpan={6} className="p-10 text-center text-gray-500">
+                  Cargando usuarios...
+                </td>
+              </tr>
+            )}
+
+            {!isLoading && filteredUsers.length === 0 && (
+              <tr>
+                <td colSpan={6} className="p-10 text-center text-gray-500">
                   No se encontraron usuarios
                 </td>
               </tr>
             )}
 
-            {filteredUsers.map((user) => (
-              <tr
-                key={user.id}
-                className="border-b border-secondary hover:bg-secondary/20 transition-colors"
-              >
-                <td className="p-3 font-semibold">{user.name}</td>
-                <td className="p-3 text-gray-500">{user.email}</td>
-                <td className="p-3">
-                  <span
-                    className={`inline-block rounded-full px-3 py-1 text-xs font-medium capitalize ${
-                      user.role === "admin"
-                        ? "bg-primary/10 text-primary"
-                        : "bg-gray-200 text-gray-600"
-                    }`}
+            {!isLoading &&
+              filteredUsers.map((user) => {
+                const isSelf = user.email === currentEmail;
+
+                return (
+                  <tr
+                    key={user.id}
+                    className="border-b border-secondary hover:bg-secondary/20 transition-colors"
                   >
-                    {user.role === "admin" ? "Administrador" : "Cliente"}
-                  </span>
-                </td>
-                <td className="p-3 hidden md:table-cell text-gray-500">{user.createdAt}</td>
-              </tr>
-            ))}
+                    <td className="p-3 font-semibold">
+                      {user.name}
+                      {isSelf && <span className="text-xs text-gray-400"> (vos)</span>}
+                    </td>
+                    <td className="p-3 text-gray-500">{user.email}</td>
+                    <td className="p-3 hidden md:table-cell text-gray-500">
+                      {user.phone || "-"}
+                    </td>
+                    <td className="p-3">
+                      <select
+                        value={user.role}
+                        disabled={isSelf || updateRole.isPending}
+                        onChange={(e) =>
+                          handleRoleChange(user.id, e.target.value as "admin" | "customer")
+                        }
+                        className={`rounded-full px-3 py-1 text-xs font-medium capitalize border-none outline-none disabled:opacity-60 ${
+                          user.role === "admin"
+                            ? "bg-primary/10 text-primary"
+                            : "bg-gray-200 text-gray-600"
+                        }`}
+                      >
+                        <option value="admin">Administrador</option>
+                        <option value="customer">Cliente</option>
+                      </select>
+                    </td>
+                    <td className="p-3 hidden md:table-cell text-gray-500">
+                      {user.createdAt
+                        ? new Date(user.createdAt).toLocaleDateString("es-AR")
+                        : "-"}
+                    </td>
+                    <td className="p-3 text-right">
+                      <button
+                        onClick={() => handleDelete(user.id, user.name)}
+                        disabled={isSelf || deleteUser.isPending}
+                        className="text-sm font-medium text-error hover:underline disabled:opacity-40 disabled:no-underline disabled:cursor-not-allowed"
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

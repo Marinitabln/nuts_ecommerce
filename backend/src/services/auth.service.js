@@ -17,17 +17,7 @@ const signToken = (user) =>
     { expiresIn: "2h" }
   );
 
-const toPublicUser = (user) => ({
-  id: user.id,
-  name: user.name,
-  firstName: user.firstName,
-  lastName: user.lastName,
-  email: user.email,
-  phone: user.phone,
-  role: user.role,
-  department: user.department,
-  location: user.location,
-});
+const { toPublicUser } = UserModel;
 
 export const registerService = async ({
   firstName,
