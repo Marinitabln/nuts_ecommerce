@@ -282,7 +282,7 @@ export default function Header() {
 
             {/* MOBILE MENU */}
             {mobileOpen && (
-                <div className="md:hidden absolute top-24 left-0 w-full min-h-screen bg-secondary shadow-lg z-40 items-center">
+                <div className="md:hidden absolute top-24 left-0 w-full min-h-[calc(100vh-6rem)] bg-secondary shadow-lg z-40 flex flex-col justify-between">
                     <ul className="flex flex-col py-10">
                         {navItems.map((item) => (
                             <li
@@ -338,6 +338,57 @@ export default function Header() {
                                 )}
                             </li>
                         ))}
+                    </ul>
+
+                    <ul className="flex flex-col pb-10 border-t border-primary/20">
+                        {/* AUTH */}
+                        {!user ? (
+                            <li>
+                                <Link
+                                    href="/ingresar"
+                                    onClick={() => setMobileOpen(false)}
+                                    className="block px-6 py-4 font-semibold text-primary mx-6"
+                                >
+                                    Iniciar sesión
+                                </Link>
+                            </li>
+                        ) : (
+                            <>
+                                <li>
+                                    <Link
+                                        href="/mi-cuenta"
+                                        onClick={() => setMobileOpen(false)}
+                                        className="block px-6 py-4 font-semibold text-primary mx-6"
+                                    >
+                                        Mi cuenta
+                                    </Link>
+                                </li>
+
+                                {user.role === "admin" && (
+                                    <li>
+                                        <Link
+                                            href="/dashboard"
+                                            onClick={() => setMobileOpen(false)}
+                                            className="block px-6 py-4 font-semibold text-primary mx-6"
+                                        >
+                                            Dashboard
+                                        </Link>
+                                    </li>
+                                )}
+
+                                <li>
+                                    <button
+                                        onClick={() => {
+                                            logout();
+                                            setMobileOpen(false);
+                                        }}
+                                        className="w-full text-left px-6 py-4 font-semibold text-primary mx-6"
+                                    >
+                                        Cerrar sesión
+                                    </button>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
             )}
