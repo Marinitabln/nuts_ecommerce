@@ -13,8 +13,22 @@ const Footer = () => {
                 <div className="flex flex-col gap-2">
                     <h4 className="flex gap-2 items-center justify-center sm:justify-start text-lg text-secondary "><MessageCircleMore size={20} />Contactanos</h4>
                     <div className="flex flex-col border border-secondary/50 p-4 rounded-lg gap-2">
-                        <Link href='https://wa.me/+5492615546708' target="_blank" rel="noopener noreferrer">+54 9 2615 54-6708</Link>
-                        <Link href='https://wa.me/+5492612560314' target="_blank" rel="noopener noreferrer">+54 9 2612 56-0314</Link>
+                        <Link
+                            href='https://wa.me/+5492615546708'
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-secondary transition-colors"
+                        >
+                            +54 9 2615 54-6708
+                        </Link>
+                        <Link
+                            href='https://wa.me/+5492612560314'
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-secondary transition-colors"
+                        >
+                            +54 9 2612 56-0314
+                        </Link>
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 mt-10 sm:mt-0">
