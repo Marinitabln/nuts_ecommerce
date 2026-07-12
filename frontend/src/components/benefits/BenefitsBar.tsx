@@ -76,7 +76,7 @@ export default function BenefitsBar() {
   return (
     <Container >
       <section
-        className="w-full max-w-4xl overflow-hidden h-[110px] mb-10">
+        className="w-full max-w-[1200px] overflow-hidden h-[110px] mb-10">
         <div
           className={`flex flex-col mx-5 sm:mx-20 md:mx-35 lg:mx-50 border-x
           ${transitionEnabled

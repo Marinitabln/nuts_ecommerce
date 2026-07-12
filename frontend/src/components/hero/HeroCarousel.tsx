@@ -94,18 +94,22 @@ export default function HeroCarousel() {
 
                             <div className="absolute inset-0 bg-black/40" />
 
-                            <div className="absolute inset-0 flex flex-col justify-center px-15 sm:px-20 lg:px-30 text-white max-w-3xl">
-                                <h1 className="text-3xl sm:text-5xl font-bold mb-4 leading-tight">
-                                    {slide.title}
-                                </h1>
+                            <div className="absolute inset-0 flex flex-col justify-center text-white">
+                                <div className="w-full max-w-[1200px] mx-auto px-8 sm:px-14 lg:px-0">
+                                    <div className="max-w-3xl">
+                                        <h1 className="text-3xl sm:text-5xl font-bold mb-4 leading-tight">
+                                            {slide.title}
+                                        </h1>
 
-                                <p className="text-sm sm:text-lg text-white/90 mb-6 max-w-xl">
-                                    {slide.description}
-                                </p>
+                                        <p className="text-sm sm:text-lg text-white/90 mb-6 max-w-xl">
+                                            {slide.description}
+                                        </p>
 
-                                <button className="w-fit bg-primary hover:opacity-90 transition-opacity text-white px-6 py-3 rounded-xl font-semibold" onClick={() => { router.push(`/${slide.callToAction}`) }}>
-                                    Ver productos
-                                </button>
+                                        <button className="w-fit bg-primary hover:opacity-90 transition-opacity text-white px-6 py-3 rounded-xl font-semibold" onClick={() => { router.push(`/${slide.callToAction}`) }}>
+                                            Ver productos
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     ))}

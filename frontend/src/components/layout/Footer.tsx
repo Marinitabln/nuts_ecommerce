@@ -9,7 +9,7 @@ const Footer = () => {
     const router = useRouter();
     return (
         <footer id="contact" className="bg-primary h-120 sm:h-70 w-full mt-15 text-white p-4 ">
-            <div className="max-w-4xl flex flex-col items-center text-center sm:text-left sm:flex-row sm:flex-wrap sm:justify-between sm:items-start my-6 mx-auto sm:px-10 md:px-0">
+            <div className="max-w-[1200px] flex flex-col items-center text-center sm:text-left sm:flex-row sm:flex-wrap sm:justify-between sm:items-start my-6 mx-auto sm:px-10 md:px-0">
                 <div className="flex flex-col gap-2">
                     <h4 className="flex gap-2 items-center justify-center sm:justify-start text-lg text-secondary "><MessageCircleMore size={20} />Contactanos</h4>
                     <div className="flex flex-col border border-secondary/50 p-4 rounded-lg gap-2">
