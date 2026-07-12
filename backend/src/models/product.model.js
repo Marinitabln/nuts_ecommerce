@@ -13,6 +13,17 @@ export const getAll = async () => {
   }));
 };
 
+export const getByCategory = async (category) => {
+  const snapshot = await productsCollection
+    .where("category", "==", category)
+    .get();
+
+  return snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+};
+
 export const getById = async (id) => {
   const doc = await productsCollection.doc(id).get();
 

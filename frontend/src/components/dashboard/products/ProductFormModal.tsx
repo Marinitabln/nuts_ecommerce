@@ -13,6 +13,8 @@ import {
   useCreateProduct,
   useUpdateProduct,
 } from "@/services/mutations-service/products-mutation";
+import { useGetCategories } from "@/services/query-services/categories-query";
+import { capitalizeFirst } from "@/lib/slugify";
 
 interface ProductFormModalProps {
   isOpen: boolean;
@@ -37,6 +39,8 @@ export default function ProductFormModal({
   const createProduct = useCreateProduct();
   const updateProduct = useUpdateProduct();
   const isSaving = createProduct.isPending || updateProduct.isPending;
+
+  const { data: categories = [] } = useGetCategories();
 
   useEffect(() => {
 
@@ -307,21 +311,11 @@ export default function ProductFormModal({
                   Seleccionar
                 </option>
 
-                <option value="cereales">
-                  Cereales
-                </option>
-
-                <option value="semillas">
-                  Semillas
-                </option>
-
-                <option value="frutos secos">
-                  Frutos secos
-                </option>
-
-                <option value="productos envasados">
-                  Productos envasados
-                </option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.name}>
+                    {capitalizeFirst(cat.name)}
+                  </option>
+                ))}
               </select>
             </div>
           </div>

@@ -5,6 +5,7 @@ import "dotenv/config";
 
 import productsRoutes from "./routes/products.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import categoriesRoutes from "./routes/categories.routes.js";
 
 import { notFoundHandler } from "./middlewares/error.middleware.js";
 
@@ -38,6 +39,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/products", productsRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/categories", categoriesRoutes);
 
 app.use(notFoundHandler);
 

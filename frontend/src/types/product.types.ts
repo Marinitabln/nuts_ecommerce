@@ -19,6 +19,12 @@ export interface ProductType {
   active?: boolean;
 }
 
+export interface CategoryType {
+  id: string;
+  name: string;
+  createdAt?: string;
+}
+
 export interface CartItemType {
   productId: string;
   productName: string;

@@ -8,7 +8,8 @@
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node scripts/seedProducts.js",
-    "seed:admin": "node scripts/seedAdmin.js"
+    "seed:admin": "node scripts/seedAdmin.js",
+    "seed:categories": "node scripts/seedCategories.js"
   },
   "keywords": [],
   "author": "",
