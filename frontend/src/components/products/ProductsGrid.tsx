@@ -35,8 +35,8 @@ const ProductsGrid = ({ selectedCategory, search = "" }: ProductsGridProps) => {
             <section className="flex flex-col gap-10 w-full max-w-4xl mx-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
                     {isLoading && <p className="text-md text-primary">Cargando productos...</p>}
-                    {error && <p className="text-md text-primary">Error al cargar los productos. Intente recargando la página.</p>}
-                    {currentItems.length > 0 ? (
+                    {!isLoading && error && <p className="text-md text-primary">Error al cargar los productos. Intente recargando la página.</p>}
+                    {!isLoading && !error && currentItems.length > 0 && (
                         currentItems.map((product, index) => (
                             <motion.div
                                 key={product.id}
@@ -58,7 +58,8 @@ const ProductsGrid = ({ selectedCategory, search = "" }: ProductsGridProps) => {
                                 />
                             </motion.div>
                         ))
-                    ) : (
+                    )}
+                    {!isLoading && !error && currentItems.length === 0 && (
                         <p className="col-span-4 text-center text-secondary py-10 w-full">
                             {search.trim()
                                 ? `No se encontraron productos para "${search.trim()}"`
