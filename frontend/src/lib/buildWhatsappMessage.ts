@@ -4,7 +4,9 @@ import { TokenPayload } from "./auth-token";
 export const buildWhatsappMessage = (
   user: TokenPayload,
   cart: CartItemType[],
-  total: number
+  total: number,
+  deliveryInfo: string,
+  phone: string
 ): string => {
   const itemsList = cart
     .map(
@@ -18,10 +20,13 @@ export const buildWhatsappMessage = (
     "",
     `Nombre: ${user.name}`,
     `Email: ${user.email}`,
+    `Celular: ${phone}`,
     "",
     "Pedido:",
     itemsList,
     "",
     `Total: $${total}`,
+    "",
+    deliveryInfo,
   ].join("\n");
 };
