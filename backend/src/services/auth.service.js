@@ -20,13 +20,26 @@ const signToken = (user) =>
 const toPublicUser = (user) => ({
   id: user.id,
   name: user.name,
+  firstName: user.firstName,
+  lastName: user.lastName,
   email: user.email,
+  phone: user.phone,
   role: user.role,
+  department: user.department,
+  location: user.location,
 });
 
-export const registerService = async ({ name, email, password }) => {
-  if (!name || !email || !password) {
-    throw new Error("Nombre, email y contraseña son obligatorios");
+export const registerService = async ({
+  firstName,
+  lastName,
+  email,
+  password,
+  phone,
+  department,
+  location,
+}) => {
+  if (!firstName || !lastName || !email || !password || !phone || !department || !location) {
+    throw new Error("Todos los campos son obligatorios");
   }
 
   if (password.length < PASSWORD_MIN_LENGTH) {
@@ -43,11 +56,19 @@ export const registerService = async ({ name, email, password }) => {
 
   const passwordHash = await bcrypt.hash(password, 10);
 
+  const trimmedFirstName = firstName.trim();
+  const trimmedLastName = lastName.trim();
+
   const user = await UserModel.create({
-    name: name.trim(),
+    firstName: trimmedFirstName,
+    lastName: trimmedLastName,
+    name: `${trimmedFirstName} ${trimmedLastName}`,
     email: email.trim().toLowerCase(),
     passwordHash,
     role: "customer",
+    phone: phone.trim(),
+    department: department.trim(),
+    location: location.trim(),
     createdAt: new Date().toISOString(),
   });
 
@@ -55,6 +76,79 @@ export const registerService = async ({ name, email, password }) => {
     token: signToken(user),
     user: toPublicUser(user),
   };
+};
+
+export const getMeService = async (email) => {
+  const user = await UserModel.getByEmail(email);
+
+  if (!user) {
+    throw new Error("Usuario no encontrado");
+  }
+
+  return toPublicUser(user);
+};
+
+export const updateMeService = async (
+  email,
+  { firstName, lastName, phone, department, location }
+) => {
+  if (!firstName || !lastName || !phone || !department || !location) {
+    throw new Error("Todos los campos son obligatorios");
+  }
+
+  const existingUser = await UserModel.getByEmail(email);
+
+  if (!existingUser) {
+    throw new Error("Usuario no encontrado");
+  }
+
+  const trimmedFirstName = firstName.trim();
+  const trimmedLastName = lastName.trim();
+
+  const updatedUser = await UserModel.update(email, {
+    firstName: trimmedFirstName,
+    lastName: trimmedLastName,
+    name: `${trimmedFirstName} ${trimmedLastName}`,
+    phone: phone.trim(),
+    department: department.trim(),
+    location: location.trim(),
+  });
+
+  return {
+    token: signToken(updatedUser),
+    user: toPublicUser(updatedUser),
+  };
+};
+
+export const changePasswordService = async (
+  email,
+  { currentPassword, newPassword }
+) => {
+  if (!currentPassword || !newPassword) {
+    throw new Error("Ingresá la contraseña actual y la nueva");
+  }
+
+  if (newPassword.length < PASSWORD_MIN_LENGTH) {
+    throw new Error(
+      `La nueva contraseña debe tener al menos ${PASSWORD_MIN_LENGTH} caracteres`
+    );
+  }
+
+  const user = await UserModel.getByEmail(email);
+
+  if (!user) {
+    throw new Error("Usuario no encontrado");
+  }
+
+  const isValidPassword = await bcrypt.compare(currentPassword, user.passwordHash);
+
+  if (!isValidPassword) {
+    throw new Error("La contraseña actual es incorrecta");
+  }
+
+  const passwordHash = await bcrypt.hash(newPassword, 10);
+
+  await UserModel.update(email, { passwordHash });
 };
 
 export const loginService = async ({ email, password }) => {

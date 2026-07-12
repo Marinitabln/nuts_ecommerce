@@ -26,3 +26,17 @@ export const create = async (user) => {
     ...user,
   };
 };
+
+export const update = async (email, data) => {
+  const id = normalizeEmail(email);
+  const docRef = usersCollection.doc(id);
+
+  await docRef.update(data);
+
+  const updatedDoc = await docRef.get();
+
+  return {
+    id: updatedDoc.id,
+    ...updatedDoc.data(),
+  };
+};

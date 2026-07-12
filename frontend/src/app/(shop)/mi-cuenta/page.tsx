@@ -1,79 +1,109 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
-import { register } from "@/services/uses-case/auth-service";
+import { useGetMe } from "@/services/query-services/auth-query";
 import { useDepartamentos, useLocalidades } from "@/services/query-services/geo-query";
-import { setToken } from "@/lib/auth-token";
+import { useUpdateProfile, useChangePassword } from "@/services/mutations-service/auth-mutation";
+import { getTokenPayload } from "@/lib/auth-token";
 import { getApiErrorMessage } from "@/lib/api-error";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 
-export default function RegistroPage() {
+export default function MiCuentaPage() {
   const router = useRouter();
+
+  const [checkedAuth, setCheckedAuth] = useState(false);
+
+  useEffect(() => {
+    if (!getTokenPayload()) {
+      router.replace("/ingresar");
+      return;
+    }
+
+    setCheckedAuth(true);
+  }, [router]);
+
+  const { data: me, isLoading: isLoadingMe } = useGetMe();
+  const { data: departamentos = [], isLoading: isLoadingDepartamentos } = useDepartamentos();
+
+  const updateProfile = useUpdateProfile();
+  const changePassword = useChangePassword();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [department, setDepartment] = useState("");
   const [location, setLocation] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [profileError, setProfileError] = useState("");
 
-  const { data: departamentos = [], isLoading: isLoadingDepartamentos } = useDepartamentos();
   const { data: localidades = [], isLoading: isLoadingLocalidades } = useLocalidades(department);
+
+  useEffect(() => {
+    if (!me) return;
+
+    setFirstName(me.firstName ?? "");
+    setLastName(me.lastName ?? "");
+    setPhone(me.phone ?? "");
+    setDepartment(me.department ?? "");
+    setLocation(me.location ?? "");
+  }, [me]);
 
   const handleDepartmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setDepartment(e.target.value);
     setLocation("");
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleProfileSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-
-    if (password !== confirmPassword) {
-      setError("Las contraseñas no coinciden");
-      return;
-    }
-
-    setIsLoading(true);
+    setProfileError("");
 
     try {
-      const { token } = await register({
-        firstName,
-        lastName,
-        email,
-        password,
-        phone,
-        department,
-        location,
-      });
-      setToken(token);
-      router.push("/");
+      await updateProfile.mutateAsync({ firstName, lastName, phone, department, location });
     } catch (err) {
-      setError(getApiErrorMessage(err, "No se pudo crear la cuenta"));
-    } finally {
-      setIsLoading(false);
+      setProfileError(getApiErrorMessage(err, "No se pudieron guardar los cambios"));
     }
   };
 
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordError("");
+
+    if (newPassword !== confirmNewPassword) {
+      setPasswordError("Las contraseñas no coinciden");
+      return;
+    }
+
+    try {
+      await changePassword.mutateAsync({ currentPassword, newPassword });
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmNewPassword("");
+    } catch (err) {
+      setPasswordError(getApiErrorMessage(err, "No se pudo cambiar la contraseña"));
+    }
+  };
+
+  if (!checkedAuth || isLoadingMe) return null;
+
   return (
-    <div className="w-[90%] max-w-md mx-auto py-16">
+    <div className="w-[90%] max-w-2xl mx-auto py-16 flex flex-col gap-8">
+      <div>
+        <h1 className="text-2xl font-bold text-primary">Mi cuenta</h1>
+        <p className="text-sm text-gray-500 mt-1">Gestioná tus datos personales</p>
+      </div>
+
+      {/* DATOS PERSONALES */}
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleProfileSubmit}
         className="rounded-2xl bg-white shadow-lg border border-gray-100 p-8 flex flex-col gap-6"
       >
-        <div>
-          <h1 className="text-2xl font-bold text-primary">Crear cuenta</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Registrate para poder comprar
-          </p>
-        </div>
+        <h2 className="font-bold text-lg">Datos personales</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex flex-col gap-2">
@@ -103,11 +133,11 @@ export default function RegistroPage() {
           <label className="font-medium">Email</label>
           <input
             type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="rounded-xl border border-gray-200 px-4 py-3 outline-none focus:border-primary"
+            disabled
+            value={me?.email ?? ""}
+            className="rounded-xl border border-gray-200 px-4 py-3 bg-gray-50 text-gray-500"
           />
+          <p className="text-xs text-gray-400">El email no se puede modificar</p>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -167,45 +197,67 @@ export default function RegistroPage() {
           </div>
         </div>
 
+        {profileError && (
+          <p className="text-sm text-red-500 text-center">{profileError}</p>
+        )}
+
+        <button
+          type="submit"
+          disabled={updateProfile.isPending}
+          className="rounded-xl bg-primary hover:bg-secondary transition-colors px-5 py-3 font-bold text-white disabled:opacity-50 self-start"
+        >
+          {updateProfile.isPending ? "Guardando..." : "Guardar cambios"}
+        </button>
+      </form>
+
+      {/* CAMBIAR CONTRASEÑA */}
+      <form
+        onSubmit={handlePasswordSubmit}
+        className="rounded-2xl bg-white shadow-lg border border-gray-100 p-8 flex flex-col gap-6"
+      >
+        <h2 className="font-bold text-lg">Cambiar contraseña</h2>
+
         <div className="flex flex-col gap-2">
-          <label className="font-medium">Contraseña</label>
+          <label className="font-medium">Contraseña actual</label>
+          <PasswordInput
+            required
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">Nueva contraseña</label>
           <PasswordInput
             required
             minLength={8}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
           />
           <p className="text-xs text-gray-400">Mínimo 8 caracteres</p>
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="font-medium">Confirmar contraseña</label>
+          <label className="font-medium">Confirmar nueva contraseña</label>
           <PasswordInput
             required
             minLength={8}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmNewPassword}
+            onChange={(e) => setConfirmNewPassword(e.target.value)}
           />
         </div>
 
-        {error && (
-          <p className="text-sm text-red-500 text-center">{error}</p>
+        {passwordError && (
+          <p className="text-sm text-red-500 text-center">{passwordError}</p>
         )}
 
         <button
           type="submit"
-          disabled={isLoading}
-          className="rounded-xl bg-primary hover:bg-secondary transition-colors px-5 py-3 font-bold text-white disabled:opacity-50"
+          disabled={changePassword.isPending}
+          className="rounded-xl bg-primary hover:bg-secondary transition-colors px-5 py-3 font-bold text-white disabled:opacity-50 self-start"
         >
-          {isLoading ? "Creando cuenta..." : "Crear cuenta"}
+          {changePassword.isPending ? "Actualizando..." : "Cambiar contraseña"}
         </button>
-
-        <p className="text-sm text-center text-gray-500">
-          ¿Ya tenés cuenta?{" "}
-          <Link href="/ingresar" className="font-semibold text-primary hover:text-secondary">
-            Ingresá acá
-          </Link>
-        </p>
       </form>
     </div>
   );
