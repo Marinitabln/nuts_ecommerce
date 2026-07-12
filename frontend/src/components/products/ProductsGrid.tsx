@@ -11,17 +11,28 @@ const ITEMS_PER_PAGE = 6;
 
 interface ProductsGridProps {
     selectedCategory: string | null;
+    search?: string;
 }
 
-const ProductsGrid = ({ selectedCategory }: ProductsGridProps) => {
+const ProductsGrid = ({ selectedCategory, search = "" }: ProductsGridProps) => {
     const { data: products = [], isLoading, error } = useGetProducts();
 
-    const filteredProducts = selectedCategory ? products.filter((product) => product.category === selectedCategory) : products;
+    const activeProducts = products.filter((product) => product.active !== false);
+
+    const categoryFiltered = selectedCategory
+        ? activeProducts.filter((product) => product.category === selectedCategory)
+        : activeProducts;
+
+    const filteredProducts = search.trim()
+        ? categoryFiltered.filter((product) =>
+            product.name.toLowerCase().includes(search.trim().toLowerCase())
+        )
+        : categoryFiltered;
     const { currentItems, currentPage, totalPages, nextPage, prevPage } = usePagination(filteredProducts, ITEMS_PER_PAGE);
 
     return (
         <Container>
-            <section className="flex flex-col gap-10 w-full">
+            <section className="flex flex-col gap-10 w-full max-w-4xl mx-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
                     {isLoading && <p className="text-md text-primary">Cargando productos...</p>}
                     {error && <p className="text-md text-primary">Error al cargar los productos. Intente recargando la página.</p>}
@@ -49,7 +60,9 @@ const ProductsGrid = ({ selectedCategory }: ProductsGridProps) => {
                         ))
                     ) : (
                         <p className="col-span-4 text-center text-secondary py-10 w-full">
-                            No se encontraron productos en esta categoría
+                            {search.trim()
+                                ? `No se encontraron productos para "${search.trim()}"`
+                                : "No se encontraron productos en esta categoría"}
                         </p>
                     )}
                 </div>
