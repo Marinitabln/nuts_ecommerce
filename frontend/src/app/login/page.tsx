@@ -8,6 +8,7 @@ import { login } from "@/services/uses-case/auth-service";
 import { setToken } from "@/lib/auth-token";
 import { getApiErrorMessage } from "@/lib/api-error";
 import { Button } from "@/components/ui/Button";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -57,12 +58,10 @@ export default function LoginPage() {
 
         <div className="flex flex-col gap-2">
           <label className="font-medium">Contraseña</label>
-          <input
-            type="password"
+          <PasswordInput
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="rounded-xl border border-gray-200 px-4 py-3 outline-none focus:border-primary"
           />
         </div>
 

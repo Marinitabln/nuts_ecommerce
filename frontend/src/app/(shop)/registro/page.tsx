@@ -7,6 +7,7 @@ import Link from "next/link";
 import { register } from "@/services/uses-case/auth-service";
 import { setToken } from "@/lib/auth-token";
 import { getApiErrorMessage } from "@/lib/api-error";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 
 export default function RegistroPage() {
   const router = useRouter();
@@ -70,13 +71,11 @@ export default function RegistroPage() {
 
         <div className="flex flex-col gap-2">
           <label className="font-medium">Contraseña</label>
-          <input
-            type="password"
+          <PasswordInput
             required
             minLength={8}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="rounded-xl border border-gray-200 px-4 py-3 outline-none focus:border-primary"
           />
           <p className="text-xs text-gray-400">Mínimo 8 caracteres</p>
         </div>
