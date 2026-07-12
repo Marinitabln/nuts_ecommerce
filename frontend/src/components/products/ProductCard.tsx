@@ -11,7 +11,6 @@ import { useToastStore } from "@/stores/ToastStore";
 
 const ProductCard = ({
   id,
-  category,
   imageUrl,
   name,
   presentations,
@@ -82,7 +81,7 @@ const ProductCard = ({
   };
 
   const handleDetail = () => {
-    router.push(`/${category}/${id}`);
+    router.push(`/producto/${id}`);
   };
 
   useEffect(() => {
