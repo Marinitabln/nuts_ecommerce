@@ -9,8 +9,8 @@ import { ProductType } from "@/types/product.types";
 
 const LOW_STOCK_THRESHOLD = 5;
 
-const getTotalStock = (product: ProductType) =>
-  product.presentations?.reduce((acc, presentation) => acc + (presentation.stock || 0), 0) ?? 0;
+const getLowStockPresentations = (product: ProductType) =>
+  product.presentations?.filter((presentation) => (presentation.stock ?? 0) <= LOW_STOCK_THRESHOLD) ?? [];
 
 const getCreatedAtMs = (createdAt: unknown): number => {
   if (!createdAt) return 0;
@@ -25,8 +25,12 @@ export default function DashboardPage() {
   const { data: products = [] } = useGetProducts();
 
   const lowStockProducts = products
-    .filter((product) => getTotalStock(product) <= LOW_STOCK_THRESHOLD)
-    .sort((a, b) => getTotalStock(a) - getTotalStock(b));
+    .filter((product) => getLowStockPresentations(product).length > 0)
+    .sort((a, b) => {
+      const minA = Math.min(...getLowStockPresentations(a).map((p) => p.stock ?? 0));
+      const minB = Math.min(...getLowStockPresentations(b).map((p) => p.stock ?? 0));
+      return minA - minB;
+    });
 
   const recentProducts = [...products]
     .sort((a, b) => getCreatedAtMs(b.createdAt) - getCreatedAtMs(a.createdAt))
@@ -79,7 +83,7 @@ export default function DashboardPage() {
           ) : (
             <div className="flex flex-col gap-3">
               {lowStockProducts.slice(0, 5).map((product) => {
-                const stock = getTotalStock(product);
+                const lowPresentations = getLowStockPresentations(product);
 
                 return (
                   <div
@@ -91,14 +95,21 @@ export default function DashboardPage() {
                       <p className="text-xs text-gray-500 capitalize">{product.category}</p>
                     </div>
 
-                    <span
-                      className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold ${
-                        stock === 0 ? "bg-error/10 text-error" : "bg-secondary/40 text-primary"
-                      }`}
-                    >
-                      <AlertTriangle size={14} />
-                      {stock} en stock
-                    </span>
+                    <div className="flex flex-col items-end gap-1">
+                      {lowPresentations.map((presentation) => (
+                        <span
+                          key={presentation.label}
+                          className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold ${
+                            (presentation.stock ?? 0) === 0
+                              ? "bg-error/10 text-error"
+                              : "bg-secondary/40 text-primary"
+                          }`}
+                        >
+                          <AlertTriangle size={14} />
+                          {presentation.label}: {presentation.stock ?? 0}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 );
               })}
