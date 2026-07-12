@@ -1,6 +1,7 @@
 "use client";
 
-import { X, ShoppingCart } from "lucide-react";
+import Link from "next/link";
+import { X, ShoppingCart, ShoppingBag } from "lucide-react";
 import CartItem from "./CartItem";
 import { useCartStore } from "@/stores/Cart.store";
 import { useHydrated } from "@/hooks/useHydrated";
@@ -69,38 +70,73 @@ if (!hydrated) return null;
 
         {/* CONTENT */}
         <div className="flex-1 overflow-y-auto p-6">
-          <div className="flex flex-col gap-4">
-            {cart.map((item) => (
-              <CartItem
-                key={`${item.productId}-${item.presentation.label}`}
-                selectedProduct={item}
-              />
-            ))}
-          </div>
+          {cart.length === 0 ? (
+            <div className="h-full flex flex-col items-center justify-center text-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center">
+                <ShoppingBag className="text-primary" size={28} />
+              </div>
+
+              <div>
+                <p className="font-semibold">
+                  Aún no sumaste productos
+                </p>
+                <p className="text-sm text-gray-500 mt-1">
+                  Empezá a comprar y encontrá lo que necesitás
+                </p>
+              </div>
+
+              <Link
+                href="/"
+                onClick={onClose}
+                className="
+                  bg-[var(--color-primary)]
+                  text-white
+                  px-6 py-3
+                  rounded-xl
+                  font-semibold
+                  hover:opacity-90
+                  transition-opacity
+                "
+              >
+                Ver productos
+              </Link>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              {cart.map((item) => (
+                <CartItem
+                  key={`${item.productId}-${item.presentation.label}`}
+                  selectedProduct={item}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* FOOTER */}
-        <div className="border-t p-6 flex flex-col gap-4">
-          <div className="flex items-center justify-between text-lg font-semibold">
-            <span>Total</span>
-           <span>${totalPrice}</span>
-          </div>
+        {cart.length > 0 && (
+          <div className="border-t p-6 flex flex-col gap-4">
+            <div className="flex items-center justify-between text-lg font-semibold">
+              <span>Total</span>
+              <span>${totalPrice}</span>
+            </div>
 
-          <button
-            className="
-              w-full
-              bg-[var(--color-primary)]
-              text-white
-              py-3
-              rounded-xl
-              font-semibold
-              hover:opacity-90
-              transition-opacity
-            "
-          >
-            Finalizar compra
-          </button>
-        </div>
+            <button
+              className="
+                w-full
+                bg-[var(--color-primary)]
+                text-white
+                py-3
+                rounded-xl
+                font-semibold
+                hover:opacity-90
+                transition-opacity
+              "
+            >
+              Finalizar compra
+            </button>
+          </div>
+        )}
       </aside>
     </>
   );
