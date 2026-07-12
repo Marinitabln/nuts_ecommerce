@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import CartDrawer from "../cart/CartDrawer";
 import { useCartStore } from "@/stores/Cart.store";
-import { clearToken, getTokenPayload, TokenPayload } from "@/lib/auth-token";
+import { AUTH_CHANGE_EVENT, clearToken, getTokenPayload, TokenPayload } from "@/lib/auth-token";
 import { useGetProducts } from "@/services/query-services/products-query";
 import { capitalizeFirst, slugify } from "@/lib/slugify";
 
@@ -36,6 +36,14 @@ export default function Header() {
 
     useEffect(() => {
         setUser(getTokenPayload());
+
+        const handleAuthChange = () => setUser(getTokenPayload());
+
+        window.addEventListener(AUTH_CHANGE_EVENT, handleAuthChange);
+
+        return () => {
+            window.removeEventListener(AUTH_CHANGE_EVENT, handleAuthChange);
+        };
     }, []);
 
     const { data: products = [] } = useGetProducts();
@@ -218,6 +226,16 @@ export default function Header() {
                                         <p className="font-semibold mb-3">
                                             {getFirstName(user.name)}
                                         </p>
+
+                                        <Link
+                                            href="/mi-cuenta"
+                                            className="block mb-3 font-medium text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors"
+                                            onClick={() =>
+                                                setDropdownOpen(false)
+                                            }
+                                        >
+                                            Mi cuenta
+                                        </Link>
 
                                         {user.role === "admin" && (
                                             <Link

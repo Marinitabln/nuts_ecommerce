@@ -1,4 +1,5 @@
 const TOKEN_KEY = "nuts_auth_token";
+export const AUTH_CHANGE_EVENT = "nuts-auth-changed";
 
 export interface TokenPayload {
   userId: string;
@@ -14,10 +15,12 @@ export const getToken = (): string | null => {
 
 export const setToken = (token: string): void => {
   localStorage.setItem(TOKEN_KEY, token);
+  window.dispatchEvent(new Event(AUTH_CHANGE_EVENT));
 };
 
 export const clearToken = (): void => {
   localStorage.removeItem(TOKEN_KEY);
+  window.dispatchEvent(new Event(AUTH_CHANGE_EVENT));
 };
 
 export const getTokenPayload = (): TokenPayload | null => {
