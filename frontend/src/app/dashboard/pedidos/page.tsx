@@ -72,7 +72,35 @@ export default function PedidosPage() {
         />
       </div>
 
-      <div className="w-full overflow-x-auto rounded-2xl p-4 bg-white shadow-sm">
+      {/* MOBILE CARDS */}
+      <div className="flex flex-col gap-4 md:hidden">
+        {MOCK_ORDERS.map((order) => (
+          <div key={order.id} className="rounded-2xl bg-white p-4 shadow-sm flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <span className="font-semibold">#{order.id}</span>
+              <span
+                className={`inline-block rounded-full px-3 py-1 text-xs font-medium capitalize ${STATUS_STYLES[order.status]}`}
+              >
+                {order.status}
+              </span>
+            </div>
+
+            <p className="text-sm">{order.customerName}</p>
+
+            <div className="flex items-center justify-between text-sm text-gray-500">
+              <span>{order.date}</span>
+              <span>
+                {order.itemsCount} item{order.itemsCount !== 1 ? "s" : ""}
+              </span>
+            </div>
+
+            <div className="text-right font-semibold text-primary">${order.total}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* DESKTOP TABLE */}
+      <div className="hidden md:block w-full overflow-x-auto rounded-2xl p-4 bg-white shadow-sm">
         <table className="w-full min-w-[700px]">
           <thead className="border-b border-primary">
             <tr className="text-left">

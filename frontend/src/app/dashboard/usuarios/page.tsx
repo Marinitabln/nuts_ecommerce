@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Search, ShieldCheck, UserPlus, Users } from "lucide-react";
 
 import { KpiCard } from "@/components/dashboard/KpiCard";
+import UsersMobileCard from "@/components/dashboard/users/UsersMobileCard";
 import { useGetUsers } from "@/services/query-services/users-query";
 import { useUpdateUserRole, useDeleteUser } from "@/services/mutations-service/users-mutation";
 import { getTokenPayload } from "@/lib/auth-token";
@@ -87,7 +88,24 @@ export default function UsuariosPage() {
         />
       </div>
 
-      <div className="w-full overflow-x-auto rounded-2xl p-4 bg-white shadow-sm">
+      {isLoading && <p className="text-primary md:hidden">Cargando usuarios...</p>}
+
+      {!isLoading && filteredUsers.length === 0 && (
+        <p className="text-gray-500 md:hidden">No se encontraron usuarios</p>
+      )}
+
+      {!isLoading && filteredUsers.length > 0 && (
+        <UsersMobileCard
+          users={filteredUsers}
+          currentEmail={currentEmail}
+          isRoleChangeDisabled={updateRole.isPending}
+          isDeleteDisabled={deleteUser.isPending}
+          onRoleChange={handleRoleChange}
+          onDelete={handleDelete}
+        />
+      )}
+
+      <div className="hidden md:block w-full overflow-x-auto rounded-2xl p-4 bg-white shadow-sm">
         <table className="w-full min-w-[700px]">
           <thead className="border-b border-primary">
             <tr className="text-left">
