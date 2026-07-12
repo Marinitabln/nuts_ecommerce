@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { X, ShoppingCart, ShoppingBag } from "lucide-react";
 import CartItem from "./CartItem";
 import { useCartStore } from "@/stores/Cart.store";
 import { useHydrated } from "@/hooks/useHydrated";
+import { getTokenPayload } from "@/lib/auth-token";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -17,7 +19,8 @@ export default function CartDrawer({
 }: CartDrawerProps) {
   
   const hydrated = useHydrated();
-  
+  const router = useRouter();
+
   const cart = useCartStore(
     (state) => state.cart
   );
@@ -26,6 +29,10 @@ export default function CartDrawer({
     (state) => state.getTotalPrice()
   );
 
+  const handleCheckout = () => {
+    onClose();
+    router.push(getTokenPayload() ? "/checkout" : "/ingresar");
+  };
 
 if (!hydrated) return null;
 
@@ -122,6 +129,7 @@ if (!hydrated) return null;
             </div>
 
             <button
+              onClick={handleCheckout}
               className="
                 w-full
                 bg-[var(--color-primary)]
