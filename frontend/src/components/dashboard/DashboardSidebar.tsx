@@ -9,6 +9,7 @@ import {
   Tags,
   Settings,
   LogOut,
+  Store,
   X
 } from "lucide-react";
 import Image from "next/image";
@@ -154,7 +155,15 @@ export default function DashboardSidebar({
           </nav>
         </div>
 
-        <div className="p-4 border-t">
+        <div className="p-4 border-t flex flex-col gap-2">
+          <Link
+            href="/"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-secondary transition-colors font-medium"
+          >
+            <Store size={20} />
+            <span>Volver al sitio</span>
+          </Link>
+
           <button
             onClick={handleLogout}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-primary hover:bg-secondary transition-colors font-medium"
